@@ -31,15 +31,17 @@ namespace ExamenGruppeB
 
     class Card : ICard
     {
+        // Card suit get and set
         public CardSuit CardSuit { get; set; }
+        //Card number get and set
         public CardNumber CardNumber { get; set; }
 
+        // Constructor
         public Card(int cardNumber, int cardSuit)
         {
             CardNumber = (CardNumber)cardNumber;
             CardSuit = (CardSuit)cardSuit;
         }
-
         public string DisplayCard()
         {
             int cardValue = (int) CardNumber;

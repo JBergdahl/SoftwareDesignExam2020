@@ -7,7 +7,12 @@ namespace ExamenGruppeB
 {
     class GameBoard
     {
+        // Singleton pattern, makes sure only one instance of GameBoard is created
         private static readonly GameBoard Instance = new GameBoard();
+        public static GameBoard GetNewGameBoard()
+        {
+            return Instance;
+        }
 
         private readonly Deck _deck;
         private readonly Random _rn;
@@ -20,11 +25,6 @@ namespace ExamenGruppeB
         {
             _deck.CardsInDeck.ForEach(c => Console.WriteLine(c.DisplayCard()));
             Console.WriteLine("Number of cards in deck: " + _deck.CardsInDeck.Capacity);
-        }
-
-        public static GameBoard GetNewGameBoard()
-        {
-            return Instance;
         }
     }
 }

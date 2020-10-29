@@ -7,13 +7,19 @@ namespace ExamenGruppeB
 {
     public sealed class Deck
     {
+        // Singleton pattern, makes sure only one instance of Deck is created
         private static readonly Deck Instance = new Deck();
+        public static Deck GetNewDeck()
+        {
+            return Instance;
+        }
+
         public List<ICard> CardsInDeck { get; set; }
         // Size of enum CardSuit - Used in loop
         private readonly int _cardSuitCount = System.Enum.GetNames(typeof(CardSuit)).Length;
         // Size of enum CardNumber - Used in loop
         private readonly int _cardNumberCount = System.Enum.GetNames(typeof(CardNumber)).Length;
-
+        // Random number generator
         private readonly Random _rn = new Random();
 
         public Deck()
@@ -46,11 +52,6 @@ namespace ExamenGruppeB
         {
             // Shuffles card and store new order to list
             CardsInDeck = CardsInDeck.OrderBy(x => Guid.NewGuid()).ToList();
-        }
-
-        public static Deck GetNewDeck()
-        {
-            return Instance;
         }
     }
 }
