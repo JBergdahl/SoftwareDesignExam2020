@@ -6,7 +6,7 @@ namespace ExamenGruppeB
 {
     class CardTheVulture : CardDecorator
     {
-        public CardTheVulture(ICard normalCard) : base(normalCard) { }
+        public CardTheVulture(ICard standardCard) : base(standardCard) { }
 
         public override string DisplayCard()
         {

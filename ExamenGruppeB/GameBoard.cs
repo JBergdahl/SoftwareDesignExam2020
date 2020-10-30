@@ -23,8 +23,11 @@ namespace ExamenGruppeB
         }
         public void Play()
         {
-            _deck.CardsInDeck.ForEach(c => Console.WriteLine(c.DisplayCard()));
-            Console.WriteLine("Number of cards in deck: " + _deck.CardsInDeck.Capacity);
+            _deck.NormalCards.ForEach(c => Console.WriteLine(c.DisplayCard()));
+            Console.WriteLine("Number of cards in deck: " + _deck.NormalCards.Capacity);
+            Console.WriteLine("******************************************************");
+            _deck.SpecialCards.ForEach(c => Console.WriteLine(c.DisplayCard()));
+            Console.WriteLine("Number of cards in deck: " + _deck.SpecialCards.Capacity);
         }
     }
 }

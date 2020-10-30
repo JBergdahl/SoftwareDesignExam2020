@@ -8,32 +8,35 @@ namespace ExamenGruppeB
     {
         public static ICard CreateNewCard(int cardNumber, int cardSuit, int specialCard)
         {
-            Random rn = new Random();
-            Deck deck = Deck.GetNewDeck();
+            // Which suit will be a special card
+            const int joker = 1; // Heart
+            const int theBomb = 2; // Diamond
+            const int theVulture = 3; // Club
+            const int quarantine = 4; // Spade
 
-            const int joker = 1;
-            const int theBomb = 2;
-            const int theVulture = 3;
-            const int quarantine = 4;
+            // New standard card
+            ICard card = new Card(cardNumber, cardSuit);
 
-            ICard Card = new Card(cardNumber, cardSuit);
+            // Add card decoration to special cards
             if (cardNumber == specialCard && cardSuit == joker)
             {
-                Card = new CardJoker(Card);
+                card = new CardJoker(card);
             }
             else if (cardNumber == specialCard && cardSuit == theBomb)
             {
-                Card = new CardTheBomb(Card);
+                card = new CardTheBomb(card);
             }
             else if (cardNumber == specialCard && cardSuit == theVulture)
             {
-                Card = new CardTheVulture(Card);
+                card = new CardTheVulture(card);
             }
             else if (cardNumber == specialCard && cardSuit == quarantine)
             {
-                Card = new CardQuarantine(Card);
+                card = new CardQuarantine(card);
             }
-            return Card;
+
+            // Return card or special card
+            return card;
         }
     }
 }

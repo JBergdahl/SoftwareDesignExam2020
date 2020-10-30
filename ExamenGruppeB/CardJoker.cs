@@ -6,7 +6,7 @@ namespace ExamenGruppeB
 {
     public class CardJoker : CardDecorator
     {
-        public CardJoker(ICard normalCard) : base(normalCard) { }
+        public CardJoker(ICard standardCard) : base(standardCard) { }
 
         public override string DisplayCard()
         {

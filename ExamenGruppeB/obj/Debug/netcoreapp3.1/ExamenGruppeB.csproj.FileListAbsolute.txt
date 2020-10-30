@@ -11,3 +11,16 @@ C:\Users\Jeppe\OneDrive\Skrivbord\Software Design 2020 EXAM\Csharp\ExamenGruppeB
 C:\Users\Jeppe\OneDrive\Skrivbord\Software Design 2020 EXAM\Csharp\ExamenGruppeB\ExamenGruppeB\obj\Debug\netcoreapp3.1\ExamenGruppeB.dll
 C:\Users\Jeppe\OneDrive\Skrivbord\Software Design 2020 EXAM\Csharp\ExamenGruppeB\ExamenGruppeB\obj\Debug\netcoreapp3.1\ExamenGruppeB.pdb
 C:\Users\Jeppe\OneDrive\Skrivbord\Software Design 2020 EXAM\Csharp\ExamenGruppeB\ExamenGruppeB\obj\Debug\netcoreapp3.1\ExamenGruppeB.genruntimeconfig.cache
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\bin\Debug\netcoreapp3.1\ExamenGruppeB.exe
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\bin\Debug\netcoreapp3.1\ExamenGruppeB.deps.json
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\bin\Debug\netcoreapp3.1\ExamenGruppeB.runtimeconfig.json
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\bin\Debug\netcoreapp3.1\ExamenGruppeB.runtimeconfig.dev.json
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\bin\Debug\netcoreapp3.1\ExamenGruppeB.dll
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\bin\Debug\netcoreapp3.1\ExamenGruppeB.pdb
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\obj\Debug\netcoreapp3.1\ExamenGruppeB.csprojAssemblyReference.cache
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\obj\Debug\netcoreapp3.1\ExamenGruppeB.AssemblyInfoInputs.cache
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\obj\Debug\netcoreapp3.1\ExamenGruppeB.AssemblyInfo.cs
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\obj\Debug\netcoreapp3.1\ExamenGruppeB.csproj.CoreCompileInputs.cache
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\obj\Debug\netcoreapp3.1\ExamenGruppeB.dll
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\obj\Debug\netcoreapp3.1\ExamenGruppeB.pdb
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\obj\Debug\netcoreapp3.1\ExamenGruppeB.genruntimeconfig.cache

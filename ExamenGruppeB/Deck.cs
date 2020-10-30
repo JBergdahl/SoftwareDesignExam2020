@@ -14,44 +14,60 @@ namespace ExamenGruppeB
             return Instance;
         }
 
-        public List<ICard> CardsInDeck { get; set; }
+        public List<ICard> NormalCards { get; set; } // List with normal cards
+        public List<ICard> SpecialCards { get; set; } // List with the special cards
+
         // Size of enum CardSuit - Used in loop
-        private readonly int _cardSuitCount = System.Enum.GetNames(typeof(CardSuit)).Length;
+        private readonly int _cardSuitCount = Enum.GetNames(typeof(CardSuit)).Length;
         // Size of enum CardNumber - Used in loop
-        private readonly int _cardNumberCount = System.Enum.GetNames(typeof(CardNumber)).Length;
+        private readonly int _cardNumberCount = Enum.GetNames(typeof(CardNumber)).Length;
         // Random number generator
         private readonly Random _rn = new Random();
 
         public Deck()
         {
             // Init list of cards
-            CardsInDeck = new List<ICard>();
+            NormalCards = new List<ICard>();
+            // Init list of special cards
+            SpecialCards = new List<ICard>();
             // Add cards to list
             NewDeck();
             // Shuffle deck
             ShuffleDeck();
         }
 
-        private void NewDeck()
+        private void NewDeck() // Creates sorted deck
         {
             // Loop through enum CardSuit
             for (int i = 1; i <= _cardSuitCount; i++)
             {
-                int specialCard = _rn.Next(13) + 1;
+                // Random card to be a special card in each suit
+                int specialCard = _rn.Next(1, 14);
                 // Loop through enum CardNumber
                 for (int j = 1; j <= _cardNumberCount; j++)
                 {
                     // Call factory to create new card
                     ICard card = CardFactory.CreateNewCard(j, i, specialCard);
-                    // Add card to deck
-                    CardsInDeck.Add(card);
+
+                    if (j == specialCard) 
+                    {
+                        // Add special card to deck
+                        SpecialCards.Add(card);
+                    }
+                    else
+                    {
+                        // Add card to deck
+                        NormalCards.Add(card);
+                    }
                 }
             }
         }
         private void ShuffleDeck()
         {
-            // Shuffles card and store new order to list
-            CardsInDeck = CardsInDeck.OrderBy(x => Guid.NewGuid()).ToList();
+            // Shuffles cards and store new order to list
+            NormalCards = NormalCards.OrderBy(x => Guid.NewGuid()).ToList();
+            // Shuffles special cards and store new order to list
+            SpecialCards = SpecialCards.OrderBy(x => Guid.NewGuid()).ToList();
         }
     }
 }

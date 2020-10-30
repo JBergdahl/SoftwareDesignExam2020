@@ -6,7 +6,7 @@ namespace ExamenGruppeB
 {
     class CardQuarantine : CardDecorator
     {
-        public CardQuarantine(ICard normalCard) : base(normalCard) { }
+        public CardQuarantine(ICard standardCard) : base(standardCard) { }
 
         public override string DisplayCard()
         {
