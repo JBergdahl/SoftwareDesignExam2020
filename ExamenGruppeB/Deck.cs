@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ExamenGruppeB
 {
-    public sealed class Deck
+    public sealed class Deck : DeckInteraction
     {
         // Singleton pattern, makes sure only one instance of Deck is created
         private static readonly Deck Instance = new Deck();
@@ -24,7 +24,7 @@ namespace ExamenGruppeB
         // Random number generator
         private readonly Random _rn = new Random();
 
-        public Deck()
+        public Deck() //private??????????????????????????????????????????????
         {
             // Init list of cards
             NormalCards = new List<ICard>();
