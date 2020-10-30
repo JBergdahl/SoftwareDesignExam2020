@@ -40,7 +40,7 @@ namespace ExamenGruppeB
 
         public void CardToDeck(ICard card) // Add one card to the bottom of the deck
         {
-            if (card is CardJoker || card is CardQuarantine || card is CardTheBomb || card is CardTheVulture)
+            if (card is CardDecorator) // Special card
             {
                 // Add card to list of special cards if card is an instance of a special card
                 _deck.SpecialCards.Insert(_deck.SpecialCards.Count, card);
@@ -56,8 +56,7 @@ namespace ExamenGruppeB
         {
             for (int i = 0; i < cards.Length; i++)
             {
-                if (cards[i] is CardJoker || cards[i] is CardQuarantine || cards[i] is CardTheBomb ||
-                    cards[i] is CardTheVulture)
+                if (cards[i] is CardDecorator) // Special card
                 {
                     // Add card to list of special cards if card is an instance of a special car
                     _deck.SpecialCards.Insert(_deck.SpecialCards.Count, cards[i]);

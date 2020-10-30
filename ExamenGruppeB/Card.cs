@@ -49,12 +49,12 @@ namespace ExamenGruppeB
             // print value + suit
             if (cardValue <= 10 && cardValue > 1)
             {
-                return cardValue + " of " + CardSuit.ToString();
+                return cardValue + " of " + CardSuit;
             }
 
             // else:
             // print card name + suit
-            return CardNumber.ToString() + " of " + CardSuit.ToString();
+            return CardNumber + " of " + CardSuit;
         }
     }
 }
