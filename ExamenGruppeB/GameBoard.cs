@@ -29,15 +29,12 @@ namespace ExamenGruppeB
             _deck.SpecialCards.ForEach(c => Console.WriteLine(c.DisplayCard()));
             Console.WriteLine("Number of cards in deck: " + _deck.SpecialCards.Count);
             Console.WriteLine("******************************************************");
-            ICard card = _deck.CardFromDeck();
-            ICard card2 = _deck.CardFromDeck();
-            ICard card3 = _deck.CardFromDeck();
-            ICard card4 = _deck.CardFromDeck();
-            ICard card5 = _deck.CardFromDeck();
+            List<ICard> card = _deck.CardFromDeckRange(5);
+            card.ForEach(c => Console.WriteLine(c.DisplayCard()));
             Console.WriteLine("Number of cards in deck: " + _deck.NormalCards.Count);
             Console.WriteLine("Number of cards in deck: " + _deck.SpecialCards.Count);
             Console.WriteLine("******************************************************");
-            _deck.CardToDeckRange(card, card2, card3, card4, card5);
+            _deck.CardToDeckRange(card[0], card[1], card[2], card[3], card[4]);
             Console.WriteLine("Number of cards in deck: " + _deck.NormalCards.Count);
             Console.WriteLine("Number of cards in deck: " + _deck.SpecialCards.Count);
             Console.WriteLine("******************************************************");

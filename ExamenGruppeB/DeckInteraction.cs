@@ -26,8 +26,9 @@ namespace ExamenGruppeB
             }
         }
 
-        List<ICard> CardFromDeckRange(int num) // Remove multiple cards from the top of the deck
+        public List<ICard> CardFromDeckRange(int num) // Remove multiple cards from the top of the deck
         {
+            _deck = Deck.GetNewDeck();
             List<ICard> cards = new List<ICard>();
             for (int i = 0; i < num; i++)
             {
@@ -39,7 +40,6 @@ namespace ExamenGruppeB
 
         public void CardToDeck(ICard card) // Add one card to the bottom of the deck
         {
-            _deck = Deck.GetNewDeck();
             if (card is CardJoker || card is CardQuarantine || card is CardTheBomb || card is CardTheVulture)
             {
                 // Add card to list of special cards if card is an instance of a special card
