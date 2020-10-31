@@ -30,7 +30,7 @@ namespace ExamenGruppeB
         {
             _deck = Deck.GetNewDeck();
             List<ICard> cards = new List<ICard>();
-            for (int i = 0; i < num; i++)
+            for (var i = 0; i < num; i++)
             {
                 cards.Add(_deck.NormalCards[0]); // add first in list
                 _deck.NormalCards.RemoveAt(0); // remove first in list

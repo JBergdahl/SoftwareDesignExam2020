@@ -39,15 +39,15 @@ namespace ExamenGruppeB
         private void NewDeck() // Creates sorted deck
         {
             // Loop through enum CardSuit
-            for (int i = 1; i <= _cardSuitCount; i++)
+            for (var i = 1; i <= _cardSuitCount; i++)
             {
                 // Random card to be a special card in each suit
-                int specialCard = _rn.Next(1, 14);
+                var specialCard = _rn.Next(1, 14);
                 // Loop through enum CardNumber
-                for (int j = 1; j <= _cardNumberCount; j++)
+                for (var j = 1; j <= _cardNumberCount; j++)
                 {
                     // Call factory to create new card
-                    ICard card = CardFactory.CreateNewCard(j, i, specialCard);
+                    var card = CardFactory.CreateNewCard(j, i, specialCard);
 
                     if (j == specialCard) 
                     {
