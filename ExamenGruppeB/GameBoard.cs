@@ -18,15 +18,27 @@ namespace ExamenGruppeB
         private List<Player> Players { get; set; }
         public GameBoard()
         { 
-            _deck = Deck.GetNewDeck();
+            _deck = Deck.GetNewDeck(); // Init deck
         }
 
-        private void CreatePlayers(int num)
+        private void CreatePlayers()
         {
-            Players = new List<Player>();
-            for (var i = 1; i <= num; i++)
+            Players = new List<Player>(); // Init list of players
+            int i; // Player input saved in i
+
+            do
             {
-                Players.Add(PlayerFactory.CreateNewPlayer(i));
+                var input = Console.ReadLine(); // Read input
+                int.TryParse(input, out i); // Validation
+                if (i >= 2 && i <= 4)
+                {
+                    break; // Break out of while loop if input is between 2 and 4
+                }
+            } while (true);
+
+            for (var j = 1; j <= i; j++)
+            {
+                Players.Add(PlayerFactory.CreateNewPlayer(j)); // Create players based on input
             }
         }
 
@@ -34,8 +46,8 @@ namespace ExamenGruppeB
         {
             Console.WriteLine("Hi, and welcome to this wonderful card game!");
             Console.WriteLine("How many players? (2-4)");
-            int i = Convert.ToInt32(Console.ReadLine());
-            CreatePlayers(i);
+            CreatePlayers();
+
             foreach (var player in Players)
             {
                 Console.WriteLine(player.Name);
