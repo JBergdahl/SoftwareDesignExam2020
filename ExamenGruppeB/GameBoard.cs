@@ -15,7 +15,7 @@ namespace ExamenGruppeB
         }
 
         private readonly Deck _deck;
-        private List<Player> Players { get; set; }
+        private List<IPlayer> Players { get; set; }
         public GameBoard()
         { 
             _deck = Deck.GetNewDeck(); // Init deck
@@ -23,7 +23,7 @@ namespace ExamenGruppeB
 
         private void CreatePlayers()
         {
-            Players = new List<Player>(); // Init list of players
+            Players = new List<IPlayer>(); // Init list of players
             int i; // Player input saved in i
 
             do
@@ -50,7 +50,13 @@ namespace ExamenGruppeB
 
             foreach (var player in Players)
             {
-                Console.WriteLine(player.Name);
+                //List<ICard> hand = _deck.CardFromDeckRange(4);
+                Console.WriteLine(player.GetName() + ": ");
+                player.AddCard(_deck.CardFromDeck());
+                //player.AddCardRange(hand);
+                player.AddCard(_deck.CardFromDeck());
+                player.AddCard(_deck.CardFromDeck());
+                player.ShowHand();
             }
         }
     }
