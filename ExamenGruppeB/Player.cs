@@ -4,25 +4,23 @@ using System.Text;
 
 namespace ExamenGruppeB
 {
-    class Player
+    public class Player : IPlayer
     {
-        public List<Player> player_list = new List<Player>();
+        public string Name { get; set; }
+        public List<ICard> Hand { get; set; }
+
+        public Player(string name)
         {
-            Console.WriteLine("How many players are playing? (2-4)");
-            player_list.Add(new Player(Console.ReadLine()));
+            Name = name;
+            Hand = new List<ICard>();
         }
 
-        
-        public string name;
-        public List<Turns> turn_list = new List<Turns>();
-        public Player(string _name)
+        public void ShowHand()
         {
-            name = _name;
-
+            foreach (var card in Hand)
+            {
+                Console.WriteLine(card.DisplayCard());
+            }
         }
-
-    
-        
-     
     }
 }

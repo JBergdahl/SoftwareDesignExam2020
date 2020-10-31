@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ExamenGruppeB
 {
-    static class CardFactory
+    public static class CardFactory
     {
         public static ICard CreateNewCard(int cardNumber, int cardSuit, int specialCard)
         {
