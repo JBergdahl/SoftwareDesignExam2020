@@ -6,7 +6,7 @@ namespace ExamenGruppeB
     {
         static void Main(string[] args)
         {
-            var gameBoard = GameBoard.GetNewGameBoard();
+            var gameBoard = GameBoard.GetGameBoard();
             gameBoard.Play();
         }
     }

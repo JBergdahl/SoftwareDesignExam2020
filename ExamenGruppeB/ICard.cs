@@ -7,5 +7,6 @@ namespace ExamenGruppeB
     public interface ICard
     {
         string DisplayCard();
+        CardSuit GetSuit();
     }
 }

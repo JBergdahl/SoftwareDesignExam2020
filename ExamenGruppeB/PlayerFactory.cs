@@ -8,7 +8,7 @@ namespace ExamenGruppeB
     {
         public static Player CreateNewPlayer(int num)
         {
-            Player player = new Player("Player" + num);
+            var player = new Player("Player" + num);
             return player;
         }
     }

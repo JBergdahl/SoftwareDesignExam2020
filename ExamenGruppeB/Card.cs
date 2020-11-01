@@ -42,6 +42,12 @@ namespace ExamenGruppeB
             CardNumber = (CardNumber)cardNumber;
             CardSuit = (CardSuit)cardSuit;
         }
+
+        public CardSuit GetSuit()
+        {
+            return CardSuit;
+        }
+
         public string DisplayCard()
         {
             int cardValue = (int) CardNumber;

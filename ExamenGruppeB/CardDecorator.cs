@@ -21,5 +21,10 @@ namespace ExamenGruppeB
         {
             return _standardCard.DisplayCard();
         }
+
+        public virtual CardSuit GetSuit()
+        {
+            return _standardCard.GetSuit();
+        }
     }
 }

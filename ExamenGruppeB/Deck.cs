@@ -9,7 +9,7 @@ namespace ExamenGruppeB
     {
         // Singleton pattern, makes sure only one instance of Deck is created
         private static readonly Deck Instance = new Deck();
-        public static Deck GetNewDeck()
+        public static Deck GetDeck()
         {
             return Instance;
         }
@@ -24,7 +24,7 @@ namespace ExamenGruppeB
         // Random number generator
         private readonly Random _rn = new Random();
 
-        public Deck() //private??????????????????????????????????????????????
+        private Deck() //private??????????????????????????????????????????????
         {
             // Init list of cards
             NormalCards = new List<ICard>();
@@ -34,6 +34,11 @@ namespace ExamenGruppeB
             NewDeck();
             // Shuffle deck
             ShuffleDeck();
+        }
+
+        public bool IsEmpty()
+        {
+            return NormalCards.Count > 0 || SpecialCards.Count > 0;
         }
 
         private void NewDeck() // Creates sorted deck

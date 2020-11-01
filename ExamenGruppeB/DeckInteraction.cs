@@ -10,7 +10,7 @@ namespace ExamenGruppeB
         private Random _rn;
         public ICard CardFromDeck() // Remove one card from the top of the deck
         {
-            _deck = Deck.GetNewDeck();
+            _deck = Deck.GetDeck();
             _rn = new Random();
             if (_rn.Next(1,10) == 1 && _deck.SpecialCards.Count != 0) // 1/10 chance to get a special card, must still be one available
             {
@@ -28,7 +28,7 @@ namespace ExamenGruppeB
 
         public List<ICard> CardFromDeckRange(int num) // Remove multiple cards from the top of the deck
         {
-            _deck = Deck.GetNewDeck();
+            _deck = Deck.GetDeck();
             List<ICard> cards = new List<ICard>();
             for (var i = 0; i < num; i++)
             {
