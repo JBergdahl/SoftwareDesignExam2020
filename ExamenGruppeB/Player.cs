@@ -16,7 +16,7 @@ namespace ExamenGruppeB
         public int DiamondCount { get; set; }
         public int ClubCount { get; set; }
         public int SpadesCount { get; set; }
-        private bool _inQuarantine { get; set; }
+        public bool InQuarantine { get; set; }
 
         private readonly Dealer _dealer = Dealer.GetDealer();
         private readonly Deck _deck = Deck.GetDeck();
@@ -25,7 +25,7 @@ namespace ExamenGruppeB
         public Player(string name, object Lock)
         {
             Name = name;
-            _inQuarantine = false;
+            InQuarantine = false;
             Hand = new List<ICard>();
             _lock = Lock;
         }
@@ -66,30 +66,9 @@ namespace ExamenGruppeB
             if (card != null)
             {
                 Console.WriteLine(Name + " throwing card: " + card.GetNumber() + " of " + card.GetSuit());
-                if (card is CardJoker)
+                if (card is CardJoker cardCast)
                 {
-                    if (Math.Max(HeartCount, DiamondCount) > Math.Max(ClubCount, SpadesCount))
-                    {
-                        if (HeartCount > DiamondCount)
-                        {
-                            HeartCount--;
-                        }
-                        else
-                        {
-                            DiamondCount--;
-                        }
-                    }
-                    else
-                    {
-                        if (ClubCount > SpadesCount)
-                        {
-                            ClubCount--;
-                        }
-                        else
-                        {
-                            SpadesCount--;
-                        }
-                    }
+                    cardCast.CardJokerRemove(card, this);
                 }
             }
             _deck.CardToDeck(card); // Send card to dealer
@@ -175,10 +154,10 @@ namespace ExamenGruppeB
                     if (!_gameBoard.GameEnd)
                     {
                         var card = _deck.CardFromDeck();
-                        if (_inQuarantine)
+                        if (InQuarantine)
                         {
                             Console.WriteLine("No card for you, " + Name);
-                            _inQuarantine = false;
+                            InQuarantine = false;
                         }
                         else if (!(card is CardDecorator))
                         {
@@ -187,7 +166,8 @@ namespace ExamenGruppeB
                         }
                         else
                         {
-                            SpecialCardAction(card);
+                            SpecialCardAction specialCard = SpecialCardAction.GetSpecialCardAction();
+                            specialCard.Action(card, this);
                         }
 
                         if (HeartCount >= 4 || DiamondCount >= 4 || ClubCount >= 4 ||
@@ -201,68 +181,5 @@ namespace ExamenGruppeB
             }
         }
 
-        public void SpecialCardAction(ICard card)
-        {
-
-            if (card is CardQuarantine)
-            {
-                card.DisplayCard(Name);
-                _inQuarantine = true;
-            }
-
-            if (card is CardTheVulture)
-            {
-                AddCard(card);
-                AddCard(_deck.CardFromDeck(true));
-            }
-
-            if (card is CardTheBomb)
-            {
-                card.DisplayCard(Name);
-                _deck.CardToDeck(card);
-                Hand.Remove(card);
-                foreach (var cards in Hand)
-                {
-                    _deck.CardToDeck(cards);
-                }
-                Hand.Clear();
-                HeartCount = 0;
-                DiamondCount = 0;
-                ClubCount = 0;
-                SpadesCount = 0;
-                AddCard(_deck.CardFromDeck(true));
-                AddCard(_deck.CardFromDeck(true));
-                AddCard(_deck.CardFromDeck(true));
-                AddCard(_deck.CardFromDeck(true));
-            }
-
-            if (card is CardJoker)
-            {
-                AddCard(card);
-                if (Math.Max(HeartCount, DiamondCount) > Math.Max(ClubCount,SpadesCount))
-                {
-                    if (HeartCount > DiamondCount)
-                    {
-                        HeartCount++;
-                    }
-                    else
-                    {
-                        DiamondCount++;
-                    }
-                }
-                else
-                {
-                    if (ClubCount > SpadesCount)
-                    {
-                        ClubCount++;
-                    }
-                    else
-                    {
-                        SpadesCount++;
-                    }
-                }
-                RemoveCard();
-            }
-        }
     }
 }

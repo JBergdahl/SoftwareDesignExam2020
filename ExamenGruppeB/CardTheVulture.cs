@@ -19,5 +19,13 @@ namespace ExamenGruppeB
         {
             Console.WriteLine("Oh, the vulture. Grab another card you greedy " + playerName);
         }
+
+        public void CardTheVultureAction(ICard card, IPlayer player)
+        {
+            var deck = Deck.GetDeck();
+            var playerCast = (Player)player;
+            playerCast.AddCard(card);
+            playerCast.AddCard(deck.CardFromDeck(true));
+        }
     }
 }

@@ -18,5 +18,12 @@ namespace ExamenGruppeB
         {
             Console.WriteLine("Quarantine. " + playerName + " you will get no card on your next visit..");
         }
+
+        public void CardQuarantineAction(ICard card, IPlayer player)
+        {
+            var playerCast = (Player)player;
+            card.DisplayCard(playerCast.Name);
+            playerCast.InQuarantine = true;
+        }
     }
 }

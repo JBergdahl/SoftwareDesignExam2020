@@ -18,5 +18,27 @@ namespace ExamenGruppeB
         {
             Console.WriteLine("Ooops " + playerName + ". You drew the bomb. Gimme all your cards!");
         }
+
+        public void CardTheBombAction(ICard card, IPlayer player)
+        {
+            var deck = Deck.GetDeck();
+            var playerCast = (Player)player;
+            card.DisplayCard(playerCast.Name);
+            deck.CardToDeck(card);
+            playerCast.Hand.Remove(card);
+            foreach (var cards in playerCast.Hand)
+            {
+                deck.CardToDeck(cards);
+            }
+            playerCast.Hand.Clear();
+            playerCast.HeartCount = 0;
+            playerCast.DiamondCount = 0;
+            playerCast.ClubCount = 0;
+            playerCast.SpadesCount = 0;
+            playerCast.AddCard(deck.CardFromDeck(true));
+            playerCast.AddCard(deck.CardFromDeck(true));
+            playerCast.AddCard(deck.CardFromDeck(true));
+            playerCast.AddCard(deck.CardFromDeck(true));
+        }
     }
 }

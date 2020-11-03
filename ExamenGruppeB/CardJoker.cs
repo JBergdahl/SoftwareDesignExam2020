@@ -10,13 +10,63 @@ namespace ExamenGruppeB
 
         public override string DisplayCard(string playerName)
         {
-            //ExtraMessage();
             return base.DisplayCard("") + " - Joker! +1 to your highest suit count"; 
         }
 
-        private void ExtraMessage()
+        public void CardJokerAction(ICard card, IPlayer player)
         {
-            Console.WriteLine("JOKER!!");
+            player.AddCard(card);
+            var playerCast = (Player) player;
+            if (Math.Max(playerCast.HeartCount, playerCast.DiamondCount) > Math.Max(playerCast.ClubCount, playerCast.SpadesCount))
+            {
+                if (playerCast.HeartCount > playerCast.DiamondCount)
+                {
+                    playerCast.HeartCount++;
+                }
+                else
+                {
+                    playerCast.DiamondCount++;
+                }
+            }
+            else
+            {
+                if (playerCast.ClubCount > playerCast.SpadesCount)
+                {
+                    playerCast.ClubCount++;
+                }
+                else
+                {
+                    playerCast.SpadesCount++;
+                }
+            }
+            player.RemoveCard();
+        }
+
+        public void CardJokerRemove(ICard card, IPlayer player)
+        {
+            var playerCast = (Player)player;
+            if (Math.Max(playerCast.HeartCount, playerCast.DiamondCount) > Math.Max(playerCast.ClubCount, playerCast.SpadesCount))
+            {
+                if (playerCast.HeartCount > playerCast.DiamondCount)
+                {
+                    playerCast.HeartCount--;
+                }
+                else
+                {
+                    playerCast.DiamondCount--;
+                }
+            }
+            else
+            {
+                if (playerCast.ClubCount > playerCast.SpadesCount)
+                {
+                    playerCast.ClubCount--;
+                }
+                else
+                {
+                    playerCast.SpadesCount--;
+                }
+            }
         }
     }
 }
