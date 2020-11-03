@@ -15,12 +15,16 @@ namespace ExamenGruppeB
         public int DiamondCount { get; set; }
         public int ClubCount { get; set; }
         public int SpadesCount { get; set; }
+        private bool _inQuarantine { get; set; }
 
         private readonly Dealer _dealer = Dealer.GetDealer();
+        private readonly Deck _deck = Deck.GetDeck();
+        private readonly GameBoard _gameBoard = GameBoard.GetGameBoard();
 
         public Player(string name)
         {
             Name = name;
+            _inQuarantine = false;
             Hand = new List<ICard>();
         }
 
@@ -29,18 +33,21 @@ namespace ExamenGruppeB
         {
             foreach (var card in Hand)
             {
-                Console.WriteLine(card.DisplayCard());
+                Console.WriteLine(card.GetNumber() + " of " + card.GetSuit());
             }
         }
 
         public void AddCard(ICard card)
         {
-            Hand.Add(card); // Add passed card to list
             if (card != null)
             {
-                Console.WriteLine(this.Name + " receiving card: " + card.DisplayCard());
+                Hand.Add(card); // Add passed card to list
+                Console.WriteLine(Name + " receiving card: " + card.DisplayCard(Name));
+                if (!(card is CardJoker))
+                {
+                    SuitCounter(card); // Update suit counter
+                }
             }
-            SuitCounter(card); // Update suit counter
         }
 
         public void RemoveCard()
@@ -48,14 +55,39 @@ namespace ExamenGruppeB
             var card = CardToThrow(); // Decide which cart to throw
             if (card != null)
             {
-                Console.WriteLine(this.Name + " throwing card: " + card.DisplayCard());
+                Console.WriteLine(Name + " throwing card: " + card.GetNumber() + " of " + card.GetSuit());
+                if (card is CardJoker)
+                {
+                    if (Math.Max(HeartCount, DiamondCount) > Math.Max(ClubCount, SpadesCount))
+                    {
+                        if (HeartCount > DiamondCount)
+                        {
+                            HeartCount--;
+                        }
+                        else
+                        {
+                            DiamondCount--;
+                        }
+                    }
+                    else
+                    {
+                        if (ClubCount > SpadesCount)
+                        {
+                            ClubCount--;
+                        }
+                        else
+                        {
+                            SpadesCount--;
+                        }
+                    }
+                }
             }
-            _dealer.TakeCard(card); // Send card to dealer
+            _deck.CardToDeck(card, _gameBoard, this); // Send card to dealer
         }
 
         private ICard CardToThrow()
         {
-            for (var i = 1; i <= 5; i++)
+            for (var i = 1; i <= 20; i++)
             {
                 ICard card;
 
@@ -68,7 +100,7 @@ namespace ExamenGruppeB
 
                 if (HeartCount == i)
                 {
-                    card = Hand.Find(c => c.GetSuit() == CardSuit.Heart); // Find card with heart suit
+                    card = Hand.Find(c => c.GetSuit() == CardSuit.Heart && !(c is CardJoker)); // Find card with heart suit
                     HeartCount--; // Update HeartCount
                     Hand.Remove(card); // Remove card from list
                     return card; // Return card to be thrown away
@@ -76,7 +108,7 @@ namespace ExamenGruppeB
 
                 if (DiamondCount == i)
                 {
-                    card = Hand.Find(c => c.GetSuit() == CardSuit.Diamond);
+                    card = Hand.Find(c => c.GetSuit() == CardSuit.Diamond && !(c is CardJoker));
                     DiamondCount--;
                     Hand.Remove(card);
                     return card;
@@ -84,7 +116,7 @@ namespace ExamenGruppeB
 
                 if (ClubCount == i)
                 {
-                    card = Hand.Find(c => c.GetSuit() == CardSuit.Club);
+                    card = Hand.Find(c => c.GetSuit() == CardSuit.Club && !(c is CardJoker));
                     ClubCount--;
                     Hand.Remove(card);
                     return card;
@@ -92,7 +124,7 @@ namespace ExamenGruppeB
 
                 if (SpadesCount == i)
                 {
-                    card = Hand.Find(c => c.GetSuit() == CardSuit.Spades);
+                    card = Hand.Find(c => c.GetSuit() == CardSuit.Spades && !(c is CardJoker));
                     SpadesCount--;
                     Hand.Remove(card);
                     return card;
@@ -124,13 +156,99 @@ namespace ExamenGruppeB
             }
         }
 
-        protected override void Task()
+        protected override void Task() // Multi threading task
         {
-            while (_dealer.HasCards && _running)
+            while (_running)
             {
-                AddCard(_dealer.GiveCard());
+                var card = _deck.CardFromDeck();
+                if (_inQuarantine)
+                {
+                    Console.WriteLine("No card for you, " + Name);
+                    _inQuarantine = false;
+                }
+                else if (!(card is CardDecorator))
+                {
+                    AddCard(card); // Receive card from dealer
+                    RemoveCard(); // Remove card from player hand
+                }
+                else
+                {
+                    SpecialCardAction(card);
+                }
+                
+                Thread.Sleep(30); // Pause before asking for next card
+            }
+        }
+
+        public void SpecialCardAction(ICard card)
+        {
+
+            foreach (var player in _gameBoard.Players)
+            {
+                if (player.Name != Name)
+                {
+                    Thread.Sleep(10);
+                }
+            }
+
+            if (card is CardQuarantine)
+            {
+                card.DisplayCard(Name);
+                _inQuarantine = true;
+            }
+
+            if (card is CardTheVulture)
+            {
+                AddCard(card);
+                AddCard(_deck.CardFromDeck(true));
+            }
+
+            if (card is CardTheBomb)
+            {
+                card.DisplayCard(Name);
+                _deck.CardToDeck(card, _gameBoard, this);
+                Hand.Remove(card);
+                foreach (var cards in Hand)
+                {
+                    _deck.CardToDeck(cards, _gameBoard, this);
+                }
+                Hand.Clear();
+                HeartCount = 0;
+                DiamondCount = 0;
+                ClubCount = 0;
+                SpadesCount = 0;
+                AddCard(_deck.CardFromDeck(true));
+                AddCard(_deck.CardFromDeck(true));
+                AddCard(_deck.CardFromDeck(true));
+                AddCard(_deck.CardFromDeck(true));
+            }
+
+            if (card is CardJoker)
+            {
+                AddCard(card);
+                if (Math.Max(HeartCount, DiamondCount) > Math.Max(ClubCount,SpadesCount))
+                {
+                    if (HeartCount > DiamondCount)
+                    {
+                        HeartCount++;
+                    }
+                    else
+                    {
+                        DiamondCount++;
+                    }
+                }
+                else
+                {
+                    if (ClubCount > SpadesCount)
+                    {
+                        ClubCount++;
+                    }
+                    else
+                    {
+                        SpadesCount++;
+                    }
+                }
                 RemoveCard();
-                Thread.Sleep(10);
             }
         }
     }

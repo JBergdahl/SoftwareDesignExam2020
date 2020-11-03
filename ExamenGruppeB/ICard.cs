@@ -6,7 +6,8 @@ namespace ExamenGruppeB
 {
     public interface ICard
     {
-        string DisplayCard();
+        string DisplayCard(string playerName = "");
         CardSuit GetSuit();
+        CardNumber GetNumber();
     }
 }

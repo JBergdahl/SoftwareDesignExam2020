@@ -16,17 +16,19 @@ namespace ExamenGruppeB
         }
 
         private readonly Deck _deck;
-        private List<Player> _players;
+        public List<Player> Players;
         private readonly Dealer _dealer;
+        public readonly List<Thread> _threads;
         public GameBoard()
         { 
             _deck = Deck.GetDeck(); // Init deck
             _dealer = Dealer.GetDealer();
+            _threads = new List<Thread>();
         }
 
         private void CreatePlayers()
         {
-            _players = new List<Player>(); // Init list of players
+            Players = new List<Player>(); // Init list of players
             int i; // Player input saved in i
 
             do
@@ -41,7 +43,7 @@ namespace ExamenGruppeB
 
             for (var j = 1; j <= i; j++)
             {
-                _players.Add(PlayerFactory.CreateNewPlayer(j)); // Create players based on input
+                Players.Add(PlayerFactory.CreateNewPlayer(j)); // Create players based on input
             }
         }
 
@@ -51,30 +53,38 @@ namespace ExamenGruppeB
             Console.WriteLine("How many players? (2-4)");
             CreatePlayers();
 
-            foreach (var player in _players)
+            foreach (var player in Players)
             {
-                player.AddCard(_deck.CardFromDeck());
-                player.AddCard(_deck.CardFromDeck());
-                player.AddCard(_deck.CardFromDeck());
-                player.AddCard(_deck.CardFromDeck());
+                player.AddCard(_deck.CardFromDeck(true));
+                player.AddCard(_deck.CardFromDeck(true));
+                player.AddCard(_deck.CardFromDeck(true));
+                player.AddCard(_deck.CardFromDeck(true));
             }
 
-            _dealer.Start();
-            foreach (var player in _players)
+            _deck.Start();
+            foreach (var player in Players)
             {
                 player.Start();
+                _threads.Add(player.Thread);
             }
+            /*
             Thread.Sleep(1000);
 
-            foreach (var player in _players)
+            foreach (var player in Players)
             {
                 player.Stop();
             }
-            _dealer.Stop();
-
-            foreach (var player in _players)
+            _deck.Stop();
+            */
+            Thread.Sleep(1000);
+            foreach (var player in Players)
             {
                 player.ShowHand();
+            }
+
+            foreach (var player in Players)
+            {
+                Console.WriteLine(player.Hand.Count);
             }
 
             /*

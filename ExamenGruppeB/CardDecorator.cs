@@ -17,14 +17,19 @@ namespace ExamenGruppeB
         }
 
         // Print out cards suit + number
-        public virtual string DisplayCard()
+        public virtual string DisplayCard(string playerName)
         {
-            return _standardCard.DisplayCard();
+            return _standardCard.DisplayCard(playerName);
         }
 
         public virtual CardSuit GetSuit()
         {
             return _standardCard.GetSuit();
+        }
+
+        public virtual CardNumber GetNumber()
+        {
+            return _standardCard.GetNumber();
         }
     }
 }

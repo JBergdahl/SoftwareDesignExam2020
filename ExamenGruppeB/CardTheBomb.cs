@@ -8,15 +8,15 @@ namespace ExamenGruppeB
     {
         public CardTheBomb(ICard standardCard) : base(standardCard) { }
 
-        public override string DisplayCard()
+        public override string DisplayCard(string playerName)
         {
-            ExtraMessage();
-            return base.DisplayCard();
+            ExtraMessage(playerName);
+            return base.DisplayCard("");
         }
 
-        private void ExtraMessage()
+        private void ExtraMessage(string playerName)
         {
-            Console.WriteLine("CardTheBomb!!");
+            Console.WriteLine("Ooops " + playerName + ". You drew the bomb. Gimme all your cards!");
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace ExamenGruppeB
@@ -8,15 +9,15 @@ namespace ExamenGruppeB
     {
         public CardTheVulture(ICard standardCard) : base(standardCard) { }
 
-        public override string DisplayCard()
+        public override string DisplayCard(string playerName)
         {
-            ExtraMessage();
-            return base.DisplayCard();
+            ExtraMessage(playerName);
+            return base.DisplayCard("") + " - Vulture! Extra card";
         }
 
-        private void ExtraMessage()
+        private void ExtraMessage(string playerName)
         {
-            Console.WriteLine("CardTheVulture!!");
+            Console.WriteLine("Oh, the vulture. Grab another card you greedy " + playerName);
         }
     }
 }

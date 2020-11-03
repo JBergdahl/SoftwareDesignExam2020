@@ -36,11 +36,6 @@ namespace ExamenGruppeB
             ShuffleDeck();
         }
 
-        public bool IsEmpty()
-        {
-            return NormalCards.Count > 0 || SpecialCards.Count > 0;
-        }
-
         private void NewDeck() // Creates sorted deck
         {
             // Loop through enum CardSuit

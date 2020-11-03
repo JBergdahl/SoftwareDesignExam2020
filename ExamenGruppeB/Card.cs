@@ -48,7 +48,12 @@ namespace ExamenGruppeB
             return CardSuit;
         }
 
-        public string DisplayCard()
+        public CardNumber GetNumber()
+        {
+            return CardNumber;
+    }
+
+        public string DisplayCard(string playerName)
         {
             int cardValue = (int) CardNumber;
             // if Card is not a face card or an ace:
