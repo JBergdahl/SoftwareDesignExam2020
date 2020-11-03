@@ -15,15 +15,15 @@ namespace ExamenGruppeB
             return Instance;
         }
 
+        public bool GameEnd = false;
         private readonly Deck _deck;
         public List<Player> Players;
+        private readonly object _lock = new object(); // Object lock for multi threading 
         private readonly Dealer _dealer;
-        public readonly List<Thread> _threads;
         public GameBoard()
         { 
             _deck = Deck.GetDeck(); // Init deck
             _dealer = Dealer.GetDealer();
-            _threads = new List<Thread>();
         }
 
         private void CreatePlayers()
@@ -43,7 +43,7 @@ namespace ExamenGruppeB
 
             for (var j = 1; j <= i; j++)
             {
-                Players.Add(PlayerFactory.CreateNewPlayer(j)); // Create players based on input
+                Players.Add(PlayerFactory.CreateNewPlayer(j, _lock)); // Create players based on input
             }
         }
 
@@ -53,30 +53,34 @@ namespace ExamenGruppeB
             Console.WriteLine("How many players? (2-4)");
             CreatePlayers();
 
-            foreach (var player in Players)
+            for (var i = 0; i < 4; i++)
             {
-                player.AddCard(_deck.CardFromDeck(true));
-                player.AddCard(_deck.CardFromDeck(true));
-                player.AddCard(_deck.CardFromDeck(true));
-                player.AddCard(_deck.CardFromDeck(true));
+                foreach (var player in Players)
+                {
+                    player.AddCard(_deck.CardFromDeck(true));
+                }
             }
 
-            _deck.Start();
             foreach (var player in Players)
             {
-                player.Start();
-                _threads.Add(player.Thread);
+                player.Start(player.Name);
             }
-            /*
-            Thread.Sleep(1000);
+
+            foreach (var player in Players)
+            {
+                Console.WriteLine(player.Name + " requesting cards");
+            }
+
+            while (!GameEnd)
+            {
+                // Waiting for win condition
+            }
 
             foreach (var player in Players)
             {
                 player.Stop();
             }
-            _deck.Stop();
-            */
-            Thread.Sleep(1000);
+
             foreach (var player in Players)
             {
                 player.ShowHand();
@@ -86,29 +90,6 @@ namespace ExamenGruppeB
             {
                 Console.WriteLine(player.Hand.Count);
             }
-
-            /*
-            _players[0].AddCard(_deck.CardFromDeck());
-            _players[0].AddCard(_deck.CardFromDeck());
-            _players[0].AddCard(_deck.CardFromDeck());
-            _players[0].AddCard(_deck.CardFromDeck());
-            Console.WriteLine(_players[0].HeartCount);
-            Console.WriteLine(_players[0].DiamondCount);
-            Console.WriteLine(_players[0].ClubCount);
-            Console.WriteLine(_players[0].SpadesCount);
-            for (var i = 0; i < 10; i++)
-            {
-                Console.WriteLine("***************************************");
-                _players[0].AddCard(_deck.CardFromDeck());
-                _players[0].RemoveCard();
-                Console.WriteLine(_players[0].HeartCount);
-                Console.WriteLine(_players[0].DiamondCount);
-                Console.WriteLine(_players[0].ClubCount);
-                Console.WriteLine(_players[0].SpadesCount);
-                Console.WriteLine("***************************************");
-            }
-            _players[0].ShowHand();
-            */
         }
     }
 }

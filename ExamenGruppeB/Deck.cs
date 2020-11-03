@@ -62,6 +62,7 @@ namespace ExamenGruppeB
                 }
             }
         }
+
         private void ShuffleDeck()
         {
             // Shuffles cards and store new order to list

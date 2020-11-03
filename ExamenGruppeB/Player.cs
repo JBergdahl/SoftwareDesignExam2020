@@ -9,6 +9,7 @@ namespace ExamenGruppeB
     {
         public string Name { get; set; }
         public List<ICard> Hand { get; set; }
+        private readonly object _lock;
 
         // Counters for suits:
         public int HeartCount { get; set; }
@@ -21,11 +22,12 @@ namespace ExamenGruppeB
         private readonly Deck _deck = Deck.GetDeck();
         private readonly GameBoard _gameBoard = GameBoard.GetGameBoard();
 
-        public Player(string name)
+        public Player(string name, object Lock)
         {
             Name = name;
             _inQuarantine = false;
             Hand = new List<ICard>();
+            _lock = Lock;
         }
 
         // Outputs current hand of player
@@ -33,7 +35,14 @@ namespace ExamenGruppeB
         {
             foreach (var card in Hand)
             {
-                Console.WriteLine(card.GetNumber() + " of " + card.GetSuit());
+                if ((int) card.GetNumber() > 1 && (int) card.GetNumber() <= 10)
+                {
+                    Console.WriteLine((int)card.GetNumber() + " of " + card.GetSuit());
+                }
+                else
+                {
+                    Console.WriteLine(card.GetNumber() + " of " + card.GetSuit());
+                }
             }
         }
 
@@ -43,6 +52,7 @@ namespace ExamenGruppeB
             {
                 Hand.Add(card); // Add passed card to list
                 Console.WriteLine(Name + " receiving card: " + card.DisplayCard(Name));
+
                 if (!(card is CardJoker))
                 {
                     SuitCounter(card); // Update suit counter
@@ -82,7 +92,7 @@ namespace ExamenGruppeB
                     }
                 }
             }
-            _deck.CardToDeck(card, _gameBoard, this); // Send card to dealer
+            _deck.CardToDeck(card); // Send card to dealer
         }
 
         private ICard CardToThrow()
@@ -160,36 +170,39 @@ namespace ExamenGruppeB
         {
             while (_running)
             {
-                var card = _deck.CardFromDeck();
-                if (_inQuarantine)
+                lock (_lock)
                 {
-                    Console.WriteLine("No card for you, " + Name);
-                    _inQuarantine = false;
+                    if (!_gameBoard.GameEnd)
+                    {
+                        var card = _deck.CardFromDeck();
+                        if (_inQuarantine)
+                        {
+                            Console.WriteLine("No card for you, " + Name);
+                            _inQuarantine = false;
+                        }
+                        else if (!(card is CardDecorator))
+                        {
+                            AddCard(card); // Receive card from dealer
+                            RemoveCard(); // Remove card from player hand
+                        }
+                        else
+                        {
+                            SpecialCardAction(card);
+                        }
+
+                        if (HeartCount >= 4 || DiamondCount >= 4 || ClubCount >= 4 ||
+                            SpadesCount >= 4)
+                        {
+                            _gameBoard.GameEnd = true;
+                        }
+                    }
                 }
-                else if (!(card is CardDecorator))
-                {
-                    AddCard(card); // Receive card from dealer
-                    RemoveCard(); // Remove card from player hand
-                }
-                else
-                {
-                    SpecialCardAction(card);
-                }
-                
-                Thread.Sleep(30); // Pause before asking for next card
+                Thread.Sleep(20); // Pause before asking for next card
             }
         }
 
         public void SpecialCardAction(ICard card)
         {
-
-            foreach (var player in _gameBoard.Players)
-            {
-                if (player.Name != Name)
-                {
-                    Thread.Sleep(10);
-                }
-            }
 
             if (card is CardQuarantine)
             {
@@ -206,11 +219,11 @@ namespace ExamenGruppeB
             if (card is CardTheBomb)
             {
                 card.DisplayCard(Name);
-                _deck.CardToDeck(card, _gameBoard, this);
+                _deck.CardToDeck(card);
                 Hand.Remove(card);
                 foreach (var cards in Hand)
                 {
-                    _deck.CardToDeck(cards, _gameBoard, this);
+                    _deck.CardToDeck(cards);
                 }
                 Hand.Clear();
                 HeartCount = 0;

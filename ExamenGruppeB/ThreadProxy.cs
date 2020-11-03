@@ -16,7 +16,8 @@ namespace ExamenGruppeB
 
         protected ThreadProxy()
         {
-            _thread = new Thread(new ThreadStart(ThreadLoop));
+            //_thread = new Thread(new ThreadStart(ThreadLoop));
+            _thread = new Thread(() => ThreadLoop());
             _running = false;
         }
 
@@ -30,11 +31,11 @@ namespace ExamenGruppeB
             }
         }
 
-        public void Start()
+        public void Start(string playerName)
         {
             _running = true;
+            Console.WriteLine("Starting " + playerName);
             _thread.Start();
-            while (!_thread.IsAlive) ;
         }
 
         public void Stop()
