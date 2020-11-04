@@ -19,11 +19,9 @@ namespace PG3302
         private readonly Deck _deck;
         public List<Player> Players;
         private readonly object _lock = new object(); // Object lock for multi threading 
-        private readonly Dealer _dealer;
         public GameBoard()
         { 
             _deck = Deck.GetDeck(); // Init deck
-            _dealer = Dealer.GetDealer();
         }
 
         private void CreatePlayers()
@@ -53,16 +51,11 @@ namespace PG3302
             Console.WriteLine("How many players? (2-4)");
             CreatePlayers();
 
-            foreach (var card in _deck.NormalCards)
-            {
-                Console.WriteLine(card.DisplayCard());
-            }
-
             for (var i = 0; i < 4; i++)
             {
                 foreach (var player in Players)
                 {
-                    player.AddCard(_deck.CardFromDeck(true));
+                    player.AddCard(_deck.CardFromDeck(false));
                 }
             }
 
@@ -91,11 +84,14 @@ namespace PG3302
                 Console.WriteLine("\n" + player.Name + ":");
                 player.ShowHand();
             }
-
+            Console.WriteLine("\n");
             foreach (var player in Players)
             {
                 Console.WriteLine(player.Hand.Count);
             }
+            Console.WriteLine("\n");
+            Console.WriteLine("Cards left in normal deck: " + _deck.NormalCards.Count);
+            Console.WriteLine("Cards left in normal deck: " + _deck.SpecialCards.Count);
         }
     }
 }

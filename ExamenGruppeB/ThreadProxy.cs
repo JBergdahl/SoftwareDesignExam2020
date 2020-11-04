@@ -7,25 +7,20 @@ namespace PG3302
 {
     public abstract class ThreadProxy
     {
-        protected Thread _thread;
-        protected bool _running;
-
-        public Thread Thread { get => _thread; }
-        public bool IsAlive { get => _thread.IsAlive; }
-        public bool Running { get => _running; }
+        protected Thread Thread;
+        protected bool Running;
 
         protected ThreadProxy()
         {
-            //_thread = new Thread(new ThreadStart(ThreadLoop));
-            _thread = new Thread(() => ThreadLoop());
-            _running = false;
+            Thread = new Thread(new ThreadStart(ThreadLoop));
+            Running = false;
         }
 
         protected abstract void Task();
 
         protected void ThreadLoop()
         {
-            while (_running)
+            while (Running)
             {
                 Task();
             }
@@ -33,15 +28,15 @@ namespace PG3302
 
         public void Start(string playerName)
         {
-            _running = true;
+            Running = true;
             Console.WriteLine("Starting " + playerName);
-            _thread.Start();
+            Thread.Start();
         }
 
         public void Stop()
         {
-            _running = false;
-            _thread.Join();
+            Running = false;
+            Thread.Join();
         }
     }
 }

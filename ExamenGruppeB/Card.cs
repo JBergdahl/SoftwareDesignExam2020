@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PG3302
 {
-    public enum CardSuit
+    public enum CardSuit // Enum of suits
     {
         Heart = 1,
         Diamond,
@@ -13,7 +13,7 @@ namespace PG3302
         Spades
     }
 
-    public enum CardNumber
+    public enum CardNumber // Enum of numbers
     {
         Ace = 1,
         Two,

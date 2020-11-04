@@ -8,14 +8,15 @@ namespace PG3302
     public class Player : ThreadProxy, IPlayer
     {
         public string Name { get; private set; }
-        public List<ICard> Hand { get; set; }
-        private readonly object _lock;
+        public List<ICard> Hand { get; set; } // List of player cards
+        private readonly object _lock; // Passed from game board
 
         // Counters for suits:
         public int HeartCount { get; set; }
         public int DiamondCount { get; set; }
         public int ClubCount { get; set; }
         public int SpadesCount { get; set; }
+        // Quarantine status:
         public bool InQuarantine { get; set; }
 
         private readonly Deck _deck = Deck.GetDeck();
@@ -25,11 +26,11 @@ namespace PG3302
 
         public Player(string name, object objectLock)
         {
-            Name = name;
-            InQuarantine = false;
-            Hand = new List<ICard>();
-            _playerHandHandler = new PlayerHandHandler(this);
-            _lock = objectLock;
+            Name = name; // Set name
+            InQuarantine = false; // Start not in quarantine
+            Hand = new List<ICard>(); // Create new list
+            _playerHandHandler = new PlayerHandHandler(this); // Player hand handler
+            _lock = objectLock; // Lock from game board
         }
 
         // Outputs current hand of player
@@ -37,10 +38,12 @@ namespace PG3302
         {
             foreach (var card in Hand)
             {
+                // Print number + suit if not a face card
                 if ((int) card.GetNumber() > 1 && (int) card.GetNumber() <= 10)
                 {
                     Console.WriteLine((int)card.GetNumber() + " of " + card.GetSuit());
                 }
+                // Print face + suit
                 else
                 {
                     Console.WriteLine(card.GetNumber() + " of " + card.GetSuit());
@@ -77,34 +80,35 @@ namespace PG3302
 
         protected override void Task() // Multi threading task
         {
-            while (_running)
+            while (Running)
             {
-                lock (_lock)
+                lock (_lock) // Lock from game board, shared by all players
                 {
-                    if (!_gameBoard.GameEnd)
+                    if (!_gameBoard.GameEnd) // Game hasn't ended
                     {
                         var card = _deck.CardFromDeck(); // Receive card from deck
                         if (card != null)
                         {
-                            if (InQuarantine)
+                            if (InQuarantine) // Is player in quarantine?
                             {
                                 Console.WriteLine("No card for you, " + Name);
-                                InQuarantine = false;
+                                InQuarantine = false; // No longer in quarantine
                             }
                             else if (!(card is CardDecorator)) // Normal card
                             {
                                 AddCard(card); // Add card to player hand
                                 RemoveCard(); // Remove card from player hand
                             }
-                            else // Special card
+                            else // Special card action
                             {
                                 _specialCardHandler.Action(card, this);
                             }
 
+                            // Check if player has 4 or more of the same suit = win
                             if (HeartCount >= 4 || DiamondCount >= 4 || ClubCount >= 4 ||
                                 SpadesCount >= 4)
                             {
-                                _gameBoard.GameEnd = true;
+                                _gameBoard.GameEnd = true; // End game
                             }
                         }
                     }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PG3302
 {
-    class CardQuarantine : CardDecorator
+    public class CardQuarantine : CardDecorator
     {
         public CardQuarantine(ICard standardCard) : base(standardCard) { }
 
@@ -21,8 +21,14 @@ namespace PG3302
 
         public void CardQuarantineAction(ICard card, IPlayer player)
         {
+            /*
+             * Display card + extra message.
+             * Puts this player in quarantine.
+             */
+            var deck = Deck.GetDeck();
             var playerCast = (Player)player;
             card.DisplayCard(playerCast.Name);
+            deck.CardToDeck(card);
             playerCast.InQuarantine = true;
         }
     }

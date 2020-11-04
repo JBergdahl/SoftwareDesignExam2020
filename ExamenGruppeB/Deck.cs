@@ -61,6 +61,7 @@ namespace PG3302
                     }
                 }
             }
+            // Shuffle both decks
             ShuffleDeck(SpecialCards);
             ShuffleDeck(NormalCards);
         }
@@ -70,8 +71,13 @@ namespace PG3302
 
             for (var i = 0; i < cards.Count; i++)
             {
+                // Store card element
                 var temp = cards[i];
+
+                // Get a random number 0 - 51
                 var index = _rn.Next(0, cards.Count);
+
+                // Swap elements at i and index position
                 cards[i] = cards[index];
                 cards[index] = temp;
             }

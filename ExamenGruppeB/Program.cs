@@ -6,8 +6,8 @@ namespace PG3302
     {
         static void Main(string[] args)
         {
-            var gameBoard = GameBoard.GetGameBoard();
-            gameBoard.Play();
+            var gameBoard = GameBoard.GetGameBoard(); // Get new game board
+            gameBoard.Play(); // Start game
         }
     }
 }

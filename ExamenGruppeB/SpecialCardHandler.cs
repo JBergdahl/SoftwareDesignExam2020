@@ -13,7 +13,10 @@ namespace PG3302
         }
         public void Action(ICard card, IPlayer player)
         {
-
+            /*
+             * Check what type of special card is passed to method,
+             * execute action based on card.
+             */
             if (card is CardQuarantine castQuarantine)
             {
                 castQuarantine.CardQuarantineAction(card, player);

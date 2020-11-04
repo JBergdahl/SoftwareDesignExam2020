@@ -24,8 +24,8 @@ namespace PG3302
         {
             var deck = Deck.GetDeck();
             var playerCast = (Player)player;
-            playerCast.AddCard(card);
-            playerCast.AddCard(deck.CardFromDeck(true));
+            playerCast.AddCard(card); // Add card to player hand
+            playerCast.AddCard(deck.CardFromDeck(false)); // Add second card to player hand, special card == false
         }
     }
 }

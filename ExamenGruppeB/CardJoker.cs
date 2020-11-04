@@ -15,8 +15,14 @@ namespace PG3302
 
         public void CardJokerAction(ICard card, IPlayer player)
         {
-            player.AddCard(card);
+            player.AddCard(card); // Adds this card to players hand
+
             var playerCast = (Player) player;
+
+            /*
+             * This code finds out what suit the player got the most of,
+             * adds +1 to that suit.
+             */
             if (Math.Max(playerCast.HeartCount, playerCast.DiamondCount) > Math.Max(playerCast.ClubCount, playerCast.SpadesCount))
             {
                 if (playerCast.HeartCount > playerCast.DiamondCount)
@@ -39,11 +45,16 @@ namespace PG3302
                     playerCast.SpadesCount++;
                 }
             }
-            player.RemoveCard();
+            player.RemoveCard(); // Call RemoveCard from this player
         }
 
         public void CardJokerRemove(ICard card, IPlayer player)
         {
+            /*
+             * Same as above but -1;
+             * This code should never run because the player
+             * should never throw away the joker.
+             */
             var playerCast = (Player)player;
             if (Math.Max(playerCast.HeartCount, playerCast.DiamondCount) > Math.Max(playerCast.ClubCount, playerCast.SpadesCount))
             {
