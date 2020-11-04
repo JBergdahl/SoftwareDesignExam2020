@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ExamenGruppeB
+namespace PG3302
 {
     class Program
     {

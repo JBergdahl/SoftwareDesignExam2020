@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading;
 using deck;
 
-namespace ExamenGruppeB
+namespace PG3302
 {
     public class GameBoard
     {
@@ -53,6 +53,11 @@ namespace ExamenGruppeB
             Console.WriteLine("How many players? (2-4)");
             CreatePlayers();
 
+            foreach (var card in _deck.NormalCards)
+            {
+                Console.WriteLine(card.DisplayCard());
+            }
+
             for (var i = 0; i < 4; i++)
             {
                 foreach (var player in Players)
@@ -83,6 +88,7 @@ namespace ExamenGruppeB
 
             foreach (var player in Players)
             {
+                Console.WriteLine("\n" + player.Name + ":");
                 player.ShowHand();
             }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ExamenGruppeB
+namespace PG3302
 {
     public sealed class Deck : DeckInteraction
     {
@@ -24,7 +24,7 @@ namespace ExamenGruppeB
         // Random number generator
         private readonly Random _rn = new Random();
 
-        private Deck() //private??????????????????????????????????????????????
+        private Deck()
         {
             // Init list of cards
             NormalCards = new List<ICard>();
@@ -33,7 +33,7 @@ namespace ExamenGruppeB
             // Add cards to list
             NewDeck();
             // Shuffle deck
-            ShuffleDeck();
+            //ShuffleDeck();
         }
 
         private void NewDeck() // Creates sorted deck
@@ -61,14 +61,27 @@ namespace ExamenGruppeB
                     }
                 }
             }
+            ShuffleDeck(SpecialCards);
+            ShuffleDeck(NormalCards);
         }
 
-        private void ShuffleDeck()
+        private void ShuffleDeck(List<ICard> cards)
         {
+
+            for (var i = 0; i < cards.Count; i++)
+            {
+                var temp = cards[i];
+                var index = _rn.Next(0, cards.Count);
+                cards[i] = cards[index];
+                cards[index] = temp;
+            }
+
+            /*
             // Shuffles cards and store new order to list
             NormalCards = NormalCards.OrderBy(x => Guid.NewGuid()).ToList();
             // Shuffles special cards and store new order to list
             SpecialCards = SpecialCards.OrderBy(x => Guid.NewGuid()).ToList();
+            */
         }
     }
 }

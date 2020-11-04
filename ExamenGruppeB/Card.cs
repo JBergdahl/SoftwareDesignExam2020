@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
-namespace ExamenGruppeB
+namespace PG3302
 {
     public enum CardSuit
     {
@@ -32,9 +33,9 @@ namespace ExamenGruppeB
     class Card : ICard
     {
         // Card suit get and set
-        public CardSuit CardSuit { get; set; }
+        public CardSuit CardSuit { get; private set; }
         //Card number get and set
-        public CardNumber CardNumber { get; set; }
+        public CardNumber CardNumber { get; private set; }
 
         // Constructor
         public Card(int cardNumber, int cardSuit)

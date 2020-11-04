@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 
-namespace ExamenGruppeB
+namespace PG3302
 {
     class CardTheVulture : CardDecorator
     {

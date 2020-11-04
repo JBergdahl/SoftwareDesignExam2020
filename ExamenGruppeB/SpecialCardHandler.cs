@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ExamenGruppeB
+namespace PG3302
 {
-    class SpecialCardAction
+    public class SpecialCardHandler
     {
-        private static readonly SpecialCardAction Instance = new SpecialCardAction();
-        public static SpecialCardAction GetSpecialCardAction()
+        private static readonly SpecialCardHandler Instance = new SpecialCardHandler();
+        public static SpecialCardHandler GetSpecialCardAction()
         {
             return Instance;
         }

@@ -1,0 +1,13 @@
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\bin\Debug\netcoreapp3.1\PG3302.exe
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\bin\Debug\netcoreapp3.1\PG3302.deps.json
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\bin\Debug\netcoreapp3.1\PG3302.runtimeconfig.json
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\bin\Debug\netcoreapp3.1\PG3302.runtimeconfig.dev.json
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\bin\Debug\netcoreapp3.1\PG3302.dll
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\bin\Debug\netcoreapp3.1\PG3302.pdb
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\obj\Debug\netcoreapp3.1\PG3302.csprojAssemblyReference.cache
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\obj\Debug\netcoreapp3.1\PG3302.AssemblyInfoInputs.cache
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\obj\Debug\netcoreapp3.1\PG3302.AssemblyInfo.cs
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\obj\Debug\netcoreapp3.1\PG3302.csproj.CoreCompileInputs.cache
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\obj\Debug\netcoreapp3.1\PG3302.dll
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\obj\Debug\netcoreapp3.1\PG3302.pdb
+C:\Users\Jeppe\Source\Repos\JBergdahl\SoftwareDesignExam2020\ExamenGruppeB\obj\Debug\netcoreapp3.1\PG3302.genruntimeconfig.cache

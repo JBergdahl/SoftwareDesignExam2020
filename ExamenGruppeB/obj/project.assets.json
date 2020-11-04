@@ -13,9 +13,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Jeppe\\Source\\Repos\\JBergdahl\\SoftwareDesignExam2020\\ExamenGruppeB\\ExamenGruppeB.csproj",
-      "projectName": "ExamenGruppeB",
-      "projectPath": "C:\\Users\\Jeppe\\Source\\Repos\\JBergdahl\\SoftwareDesignExam2020\\ExamenGruppeB\\ExamenGruppeB.csproj",
+      "projectUniqueName": "C:\\Users\\Jeppe\\Source\\Repos\\JBergdahl\\SoftwareDesignExam2020\\ExamenGruppeB\\PG3302.csproj",
+      "projectName": "PG3302",
+      "projectPath": "C:\\Users\\Jeppe\\Source\\Repos\\JBergdahl\\SoftwareDesignExam2020\\ExamenGruppeB\\PG3302.csproj",
       "packagesPath": "C:\\Users\\Jeppe\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Jeppe\\Source\\Repos\\JBergdahl\\SoftwareDesignExam2020\\ExamenGruppeB\\obj\\",
       "projectStyle": "PackageReference",

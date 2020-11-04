@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ExamenGruppeB
+namespace PG3302
 {
     class CardQuarantine : CardDecorator
     {

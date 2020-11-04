@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
-namespace ExamenGruppeB
+namespace PG3302
 {
     public abstract class ThreadProxy
     {

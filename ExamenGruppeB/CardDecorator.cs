@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ExamenGruppeB
+namespace PG3302
 {
     // All the special cards will inherit from this CardDecorator abstract class
     // This can be added to any standard card in the CardFactory

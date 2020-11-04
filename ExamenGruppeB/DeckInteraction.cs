@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
-namespace ExamenGruppeB
+namespace PG3302
 {
     public abstract class DeckInteraction
     {
@@ -37,6 +37,7 @@ namespace ExamenGruppeB
             else
             {
                 // Add card to list of normal cards
+                // CHANGE TO ADD TO A RANDOM LOCATION IN LIST
                 _deck.NormalCards.Insert(_deck.NormalCards.Count, card);
             }
         }
