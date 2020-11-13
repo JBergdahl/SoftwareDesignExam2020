@@ -91,7 +91,12 @@ namespace PG3302
             }
             Console.WriteLine("\n");
             Console.WriteLine("Cards left in normal deck: " + _deck.NormalCards.Count);
-            Console.WriteLine("Cards left in normal deck: " + _deck.SpecialCards.Count);
+            Console.WriteLine("Cards left in special deck: " + _deck.SpecialCards.Count);
+
+            foreach (var card in _deck.SpecialCards)
+            {
+                Console.WriteLine(card.GetNumber() + " " + card.GetSuit());
+            }
         }
     }
 }

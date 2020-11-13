@@ -86,15 +86,16 @@ namespace PG3302
                 {
                     if (!_gameBoard.GameEnd) // Game hasn't ended
                     {
+                        if (InQuarantine) // Is player in quarantine?
+                        {
+                            Console.WriteLine("No card for you, " + Name);
+                            InQuarantine = false; // No longer in quarantine
+                            break;
+                        }
                         var card = _deck.CardFromDeck(); // Receive card from deck
                         if (card != null)
                         {
-                            if (InQuarantine) // Is player in quarantine?
-                            {
-                                Console.WriteLine("No card for you, " + Name);
-                                InQuarantine = false; // No longer in quarantine
-                            }
-                            else if (!(card is CardDecorator)) // Normal card
+                            if (!(card is CardDecorator)) // Normal card
                             {
                                 AddCard(card); // Add card to player hand
                                 RemoveCard(); // Remove card from player hand
