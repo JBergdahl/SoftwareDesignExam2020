@@ -15,15 +15,36 @@ namespace PG3302
             return Instance;
         }
 
-        public bool GameEnd = false;
+        public bool GameEnd { get; set; }
         private readonly Deck _deck;
-        public List<Player> Players;
+        public List<Player> Players { get; set; }
         private readonly object _lock = new object(); // Object lock for multi threading 
         public GameBoard()
-        { 
+        {
+            GameEnd = false;
             _deck = Deck.GetDeck(); // Init deck
         }
 
+        public void Play()
+        {
+            Console.WriteLine("Hi, and welcome to this wonderful card game!");
+            Console.WriteLine("How many players? (2-4)");
+            CreatePlayers();
+            PlayerInit();
+
+            while (!GameEnd)
+            {
+                // Wait for game to finish
+                Thread.Sleep(1000);
+            }
+
+            foreach (var players in Players)
+            {
+                // Stop player threads
+                players.Stop();
+            }
+            
+        }
         private void CreatePlayers()
         {
             Players = new List<Player>(); // Init list of players
@@ -35,24 +56,27 @@ namespace PG3302
                 int.TryParse(input, out i); // Validation
                 if (i >= 2 && i <= 4)
                 {
-                    break; // Break out of while loop if input is between 2 and 4
+                    break; // Break out of while loop if input is 2, 3 or 4
                 }
+                Console.WriteLine("Invalid input");
             } while (true);
 
             for (var j = 1; j <= i; j++)
             {
                 Players.Add(PlayerFactory.CreateNewPlayer(j, _lock)); // Create players based on input
             }
+            foreach (var player in Players)
+            {
+                // Callback method setup
+                player.Winner += Player_Winner;
+            }
         }
 
-        public void Play()
+        private void PlayerInit()
         {
-            Console.WriteLine("Hi, and welcome to this wonderful card game!");
-            Console.WriteLine("How many players? (2-4)");
-            CreatePlayers();
-
             for (var i = 0; i < 4; i++)
             {
+                // Deal start cards to players
                 foreach (var player in Players)
                 {
                     player.AddCard(_deck.CardFromDeck(false));
@@ -61,6 +85,7 @@ namespace PG3302
 
             foreach (var player in Players)
             {
+                // Start player threads
                 player.Start(player.Name);
             }
 
@@ -68,35 +93,16 @@ namespace PG3302
             {
                 Console.WriteLine(player.Name + " requesting cards");
             }
+        }
 
-            while (!GameEnd)
-            {
-                // Waiting for win condition
-            }
-
-            foreach (var player in Players)
-            {
-                player.Stop();
-            }
-
-            foreach (var player in Players)
-            {
-                Console.WriteLine("\n" + player.Name + ":");
-                player.ShowHand();
-            }
-            Console.WriteLine("\n");
-            foreach (var player in Players)
-            {
-                Console.WriteLine(player.Hand.Count);
-            }
-            Console.WriteLine("\n");
-            Console.WriteLine("Cards left in normal deck: " + _deck.NormalCards.Count);
-            Console.WriteLine("Cards left in special deck: " + _deck.SpecialCards.Count);
-
-            foreach (var card in _deck.SpecialCards)
-            {
-                Console.WriteLine(card.GetNumber() + " " + card.GetSuit());
-            }
+        // Callback method
+        // Invoked by player
+        private void Player_Winner(object sender, Player player)
+        {
+            // Winner info output:
+            Console.WriteLine("\nWe have a winner!:");
+            Console.WriteLine(player.Name + " current hand:");
+            player.ShowHand();
         }
     }
 }

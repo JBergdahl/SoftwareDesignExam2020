@@ -8,6 +8,7 @@ namespace PG3302
         {
             var gameBoard = GameBoard.GetGameBoard(); // Get new game board
             gameBoard.Play(); // Start game
+            Console.ReadKey(true);
         }
     }
 }

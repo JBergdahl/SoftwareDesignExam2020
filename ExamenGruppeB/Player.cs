@@ -11,6 +11,8 @@ namespace PG3302
         public List<ICard> Hand { get; set; } // List of player cards
         private readonly object _lock; // Passed from game board
 
+        public event EventHandler<Player> Winner;
+
         // Counters for suits:
         public int HeartCount { get; set; }
         public int DiamondCount { get; set; }
@@ -90,26 +92,29 @@ namespace PG3302
                         {
                             Console.WriteLine("No card for you, " + Name);
                             InQuarantine = false; // No longer in quarantine
-                            break;
                         }
-                        var card = _deck.CardFromDeck(); // Receive card from deck
-                        if (card != null)
+                        else
                         {
-                            if (!(card is CardDecorator)) // Normal card
+                            var card = _deck.CardFromDeck(); // Receive card from deck
+                            if (card != null)
                             {
-                                AddCard(card); // Add card to player hand
-                                RemoveCard(); // Remove card from player hand
-                            }
-                            else // Special card action
-                            {
-                                _specialCardHandler.Action(card, this);
-                            }
+                                if (!(card is CardDecorator)) // Normal card
+                                {
+                                    AddCard(card); // Add card to player hand
+                                    RemoveCard(); // Remove card from player hand
+                                }
+                                else // Special card action
+                                {
+                                    _specialCardHandler.Action(card, this);
+                                }
 
-                            // Check if player has 4 or more of the same suit = win
-                            if (HeartCount >= 4 || DiamondCount >= 4 || ClubCount >= 4 ||
-                                SpadesCount >= 4)
-                            {
-                                _gameBoard.GameEnd = true; // End game
+                                // Check if player has 4 or more of the same suit = win
+                                if (HeartCount >= 4 || DiamondCount >= 4 || ClubCount >= 4 ||
+                                    SpadesCount >= 4)
+                                {
+                                    Winner?.Invoke(this, this); // Invoke callback method in GameBoard
+                                    _gameBoard.GameEnd = true; // End game
+                                }
                             }
                         }
                     }
