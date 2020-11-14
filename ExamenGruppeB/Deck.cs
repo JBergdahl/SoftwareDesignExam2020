@@ -38,8 +38,36 @@ namespace PG3302
 
         private void NewDeck() // Creates sorted deck
         {
+            // Create method to randomize which suit starts being created so a special card is assigned at random
+            var iNumber = 0;
+            int[] numbersArray = { 1, 2, 3, 4 };
+            var rn = new Random();
+
+            while (iNumber < numbersArray.Length)
+            {
+
+                // Store  element
+                var temp = numbersArray[iNumber];
+
+                // Get a random number 0 - 4
+                var index = rn.Next(0, numbersArray.Length);
+
+                // Swap elements at i and index position
+                numbersArray[iNumber] = numbersArray[index];
+                numbersArray[index] = temp;
+
+                // Increment counter
+                iNumber++;
+            }
+
+            // Variables to check if a type of special card has been assigned
+            var jokerAssorted = false;
+            var theBombAssorted = false;
+            var theVultureAssorted = false;
+            var quarantineAssorted = false;
+
             // Loop through enum CardSuit
-            for (var i = 1; i <= _cardSuitCount; i++)
+            for (var i = 0; i <= _cardSuitCount - 1; i++)
             {
                 // Random card to be a special card in each suit
                 var specialCard = _rn.Next(1, 14);
@@ -47,9 +75,32 @@ namespace PG3302
                 for (var j = 1; j <= _cardNumberCount; j++)
                 {
                     // Call factory to create new card
-                    var card = CardFactory.CreateNewCard(j, i, specialCard);
+                    var card = CardFactory.CreateNewCard(j, numbersArray[i]);
 
-                    if (j == specialCard) 
+                    // Add card decoration to special cards
+                    if (j == specialCard && !jokerAssorted)
+                    {
+                        card = new CardJoker(card);
+                        jokerAssorted = true;
+                    }
+                    else if (j == specialCard && !theBombAssorted)
+                    {
+                        card = new CardTheBomb(card);
+                        theBombAssorted = true;
+                    }
+                    else if (j == specialCard && !theVultureAssorted)
+                    {
+                        card = new CardTheVulture(card);
+                        theVultureAssorted = true;
+                    }
+                    else if (j == specialCard && !quarantineAssorted)
+                    {
+                        card = new CardQuarantine(card);
+                        quarantineAssorted = true;
+                    }
+
+
+                    if (j == specialCard)
                     {
                         // Add special card to deck
                         SpecialCards.Add(card);
@@ -65,7 +116,6 @@ namespace PG3302
             ShuffleDeck(SpecialCards);
             ShuffleDeck(NormalCards);
         }
-
         private void ShuffleDeck(List<ICard> cards)
         {
 
@@ -81,13 +131,6 @@ namespace PG3302
                 cards[i] = cards[index];
                 cards[index] = temp;
             }
-
-            /*
-            // Shuffles cards and store new order to list
-            NormalCards = NormalCards.OrderBy(x => Guid.NewGuid()).ToList();
-            // Shuffles special cards and store new order to list
-            SpecialCards = SpecialCards.OrderBy(x => Guid.NewGuid()).ToList();
-            */
         }
     }
 }
