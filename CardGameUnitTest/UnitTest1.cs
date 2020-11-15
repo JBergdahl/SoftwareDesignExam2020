@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
@@ -156,6 +157,36 @@ namespace CardGameUnitTest
             Assert.AreEqual(1, player.Hand.Count);
             specialCardHandler.Action(cardTheVulture, player);
             Assert.AreEqual(3, player.Hand.Count);
+
+            // Create quarantine card
+            var card3 = new Card(5, 3);
+            var quarantine = new CardQuarantine(card3);
+            // Updates player quarantine status from false to true
+            Assert.IsFalse(player.InQuarantine);
+            specialCardHandler.Action(quarantine, player);
+            Assert.IsTrue(player.InQuarantine);
+
+
+            player.Hand.Clear();
+            var oldCard = new Card(7, 2);
+            var oldCard1 = new Card(9, 1);
+            var oldCard2 = new Card(10, 1);
+            var oldCard3 = new Card(12, 1);
+            player.AddCard(oldCard);
+            player.AddCard(oldCard1);
+            player.AddCard(oldCard2);
+            player.AddCard(oldCard3);
+            // Create theBomb card
+            var card4 = new Card(7, 4);
+            var theBomb = new CardTheBomb(card4);
+            // Player gets 4 new cards
+            specialCardHandler.Action(theBomb, player);
+            List<ICard> newCards = player.Hand;
+            CollectionAssert.DoesNotContain(newCards, oldCard);
+            CollectionAssert.DoesNotContain(newCards, oldCard1);
+            CollectionAssert.DoesNotContain(newCards, oldCard2);
+            CollectionAssert.DoesNotContain(newCards, oldCard3);
+
         }
     }
 }
