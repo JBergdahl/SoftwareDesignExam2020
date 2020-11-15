@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PG3302
 {
-    class CardTheVulture : CardDecorator
+    public class CardTheVulture : CardDecorator
     {
         public CardTheVulture(ICard standardCard) : base(standardCard) { }
 

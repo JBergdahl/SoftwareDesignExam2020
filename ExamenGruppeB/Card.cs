@@ -30,7 +30,7 @@ namespace PG3302
         King
     }
 
-    class Card : ICard
+    public class Card : ICard
     {
         // Card suit get and set
         public CardSuit CardSuit { get; private set; }

@@ -1,0 +1,9 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=36fd7b6d_002D321b_002D4175_002D8960_002Dfd4d0b37c49a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TestDeck" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::E1FF3A79-D1EA-4FDC-9B8A-7233306A3A90::.NETCoreApp,Version=v3.1::CardGameUnitTest.Tests.TestDeck&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::E1FF3A79-D1EA-4FDC-9B8A-7233306A3A90::.NETCoreApp,Version=v3.1::CardGameUnitTest.Tests.TestPlayerAddCard_SuitCounter&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::E1FF3A79-D1EA-4FDC-9B8A-7233306A3A90::.NETCoreApp,Version=v3.1::CardGameUnitTest.Tests.TestPlayerCardLogic&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::E1FF3A79-D1EA-4FDC-9B8A-7233306A3A90::.NETCoreApp,Version=v3.1::CardGameUnitTest.Tests.TestSpecialCards&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
